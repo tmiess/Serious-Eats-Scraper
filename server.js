@@ -112,43 +112,22 @@ app.get("/scrape", function(req, res) {
     res.redirect("/");
 });
 
-//////////////////// with axios: ////////////////////////////////////
-// app.get("/scrape", function(req, res) {
-//     axios.get("http://www.seriouseats.com").then(function(response) {
-
-//         // Load the HTML into cheerio and save it to a variable
-//         // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
-//         var $ = cheerio.load(response.data);
-
-//         // look for all h4 tags with a title class
-//         $("h4.title").each(function(i, element) {
-
-//             // save an empty result object
-//             var result = {};
-
-//             result.link = $(this).parent().attr("href");
-//             result.title = $(this).text();
-
-//             // if a title and link both exist, then we create a new Article using the result object built from scraping
-//             if (result.title && result.link) {
-//                 //save each one to mongoDB
-//                 db.seriousEatsdb.insert({
-//                         link: link,
-//                         title: title
-//                     },
-//                     function(err, inserted) {
-//                         if (err) {
-//                             console.log(err);
-//                         }
-//                         else {
-//                             console.log(inserted);
-//                         }
-//                     });
-//             }
-//         });
-//     });
-// });
-////////////////////////////////////////////////////////////////////
+// Route for getting all Articles from the db
+app.get("/articles", function(req, res) {
+    // Grab every document in the Articles collection
+    db.Article
+        .find({})
+        .then(function(dbArticle) {
+            // If we were able to successfully find Articles, send them back to the client
+            res.json(dbArticle);
+            console.log("articles have been found!");
+        })
+        .catch(function(err) {
+            // If an error occurred, send it to the client
+            console.log("articles have not been found!");
+            res.json(err);
+        });
+});
 
 app.listen(port, function() {
     console.log("connected to port " + port);
