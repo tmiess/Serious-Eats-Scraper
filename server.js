@@ -29,9 +29,8 @@ var db = require("./models/index.js");
 //     console.log("Database Error:", error);
 // });
 
-///////////////////////end testing//////////////////////////////
 ////////////////////////////////////////////////////////////////
-
+///////////////////////end testing//////////////////////////////
 
 
 var port = process.env.PORT || 8080;
@@ -74,6 +73,10 @@ app.get("/test", function(req, res) {
 
 // get route to scrape data from seriouseats.com and store it in db
 
+app.get("/", function(req, res) {
+    res.send("./public/index.html");
+});
+
 app.get("/scrape", function(req, res) {
     request("http://www.seriouseats.com/sandwiches", function(error, response, html) {
 
@@ -84,7 +87,7 @@ app.get("/scrape", function(req, res) {
         // look for all "a" tags with class "module__link"
         $("a.module__link").each(function(i, element) {
 
-            //classes are title and kicker, both are children of a.module_link
+            //classes are "title" and "kicker", both are children of "a.module_link"
 
             var link = $(element).attr("href");
             var title = $(element).children('.title').text();
