@@ -1,5 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
+var exphbs = require("express-handlebars");
+
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
@@ -15,7 +17,13 @@ var port = process.env.PORT || 8080;
 // Initialize Express
 var app = express();
 
-////// most of this will follow exercise 20 in the mongo-mongoose folder
+// connect to handlebars
+app.engine('handlebars', exphbs({
+    defaultLayout: 'main'
+}));
+app.set('view engine', 'handlebars');
+
+////// most of this will follow the exercise 20 template the mongo-mongoose folder
 
 // Configure middleware
 
@@ -28,8 +36,11 @@ app.use(express.static("public"));
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
+// Also make sure that Heroku can access our database
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/seriousEatsdb";
+
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/seriousEatsdb", {});
+mongoose.connect(MONGODB_URI, {});
 
 // Routes
 
