@@ -12,24 +12,27 @@ var cheerio = require("cheerio");
 // tried axios at first but then realized that I needed request
 // var axios = require("axios");
 
-// // Require all models
-// var db = require("./models");
+// Require all models
+var db = require("./models/index.js");
+
 
 //////////testing mongodb and scraper function//////////////////
 ////////////////////////////////////////////////////////////////
 
-// Database configuration
-var databaseUrl = "seriousEatsdb";
-var collections = ["sandwiches"];
+// // Database configuration
+// var databaseUrl = "seriousEatsdb";
+// var collections = ["sandwiches"];
 
-// Hook mongojs configuration to the db variable
-var db = mongojs(databaseUrl, collections);
-db.on("error", function(error) {
-    console.log("Database Error:", error);
-});
+// // Hook mongojs configuration to the db variable
+// var db = mongojs(databaseUrl, collections);
+// db.on("error", function(error) {
+//     console.log("Database Error:", error);
+// });
 
 ///////////////////////end testing//////////////////////////////
 ////////////////////////////////////////////////////////////////
+
+
 
 var port = process.env.PORT || 8080;
 
@@ -78,7 +81,7 @@ app.get("/scrape", function(req, res) {
         // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
         var $ = cheerio.load(html);
 
-        // look for all h4 tags with a title class
+        // look for all "a" tags with class "module__link"
         $("a.module__link").each(function(i, element) {
 
             //classes are title and kicker, both are children of a.module_link
@@ -87,9 +90,9 @@ app.get("/scrape", function(req, res) {
             var title = $(element).children('.title').text();
             var summary = $(element).children('.kicker').text();
 
-            if (title && link) {
+            if (title && link && summary) {
                 //save each one to mongoDB
-                db.Sandwiches.insert({
+                db.Article.create({
                         link: link,
                         title: title,
                         summary: summary
@@ -100,11 +103,13 @@ app.get("/scrape", function(req, res) {
                         }
                         else {
                             console.log(inserted);
+                            console.log("succesfully added");
                         }
                     });
             }
         });
     });
+    res.redirect("/");
 });
 
 //////////////////// with axios: ////////////////////////////////////
