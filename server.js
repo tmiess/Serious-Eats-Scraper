@@ -1,4 +1,5 @@
 var express = require("express");
+var mongojs = require("mongojs");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
 
@@ -6,11 +7,29 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 
 // scraping tools
-var axios = require("axios");
+var request = require("request");
 var cheerio = require("cheerio");
+// tried axios at first but then realized that I needed request
+// var axios = require("axios");
 
-// Require all models
-var db = require("./models");
+// // Require all models
+// var db = require("./models");
+
+//////////testing mongodb and scraper function//////////////////
+////////////////////////////////////////////////////////////////
+
+// Database configuration
+var databaseUrl = "seriousEatsdb";
+var collections = ["sandwiches"];
+
+// Hook mongojs configuration to the db variable
+var db = mongojs(databaseUrl, collections);
+db.on("error", function(error) {
+    console.log("Database Error:", error);
+});
+
+///////////////////////end testing//////////////////////////////
+////////////////////////////////////////////////////////////////
 
 var port = process.env.PORT || 8080;
 
@@ -42,64 +61,38 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/seriousEatsdb"
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, {});
 
-// Routes
+// Routes --> eventually put these into a controller folder under routes.js and require it in this file. for now, just make sure they are working
 
-// // A GET route for scraping the echojs website
-// app.get("/scrape", function(req, res) {
-//     // First, we grab the body of the html with request
-//     axios.get("http://www.echojs.com/").then(function(response) {
-//         // Then, we load that into cheerio and save it to $ for a shorthand selector
-//         var $ = cheerio.load(response.data);
+/////////////test route//////////////////
+app.get("/test", function(req, res) {
+    res.send("Hello world");
+});
+/////////////////////////////////////////
 
-//         // Now, we grab every h2 within an article tag, and do the following:
-//         $("article h2").each(function(i, element) {
-//             // Save an empty result object
-//             var result = {};
-
-//             // Add the text and href of every link, and save them as properties of the result object
-//             result.title = $(this)
-//                 .children("a")
-//                 .text();
-//             result.link = $(this)
-//                 .children("a")
-//                 .attr("href");
-
-//             // Create a new Article using the `result` object built from scraping
-//             db.Article
-//                 .create(result)
-//                 .then(function(dbArticle) {
-//                     // If we were able to successfully scrape and save an Article, send a message to the client
-//                 })
-//                 .catch(function(err) {
-//                     // If an error occurred, send it to the client
-//                     res.json(err);
-//                 });
-//         });
-//     });
-//     res.send("Scrape Complete");
-// });
+// get route to scrape data from seriouseats.com and store it in db
 
 app.get("/scrape", function(req, res) {
-    axios.get("http://www.seriouseats.com").then(function(response) {
+    request("http://www.seriouseats.com/sandwiches", function(error, response, html) {
 
         // Load the HTML into cheerio and save it to a variable
         // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
-        var $ = cheerio.load(response.data);
+        var $ = cheerio.load(html);
 
-        $("h4.title").each(function(i, element) {
+        // look for all h4 tags with a title class
+        $("a.module__link").each(function(i, element) {
 
-            // save an empty result object
-            var result = {};
+            //classes are title and kicker, both are children of a.module_link
 
-            result.link = $(this).parent().attr("href");
-            result.title = $(this).text();
+            var link = $(element).attr("href");
+            var title = $(element).children('.title').text();
+            var summary = $(element).children('.kicker').text();
 
-            // if a title and link both exist, then we create a new Article using the result object built from scraping
-            if (result.title && result.link) {
+            if (title && link) {
                 //save each one to mongoDB
-                db.seriousEatsdb.insert({
+                db.Sandwiches.insert({
                         link: link,
-                        title: title
+                        title: title,
+                        summary: summary
                     },
                     function(err, inserted) {
                         if (err) {
@@ -113,6 +106,44 @@ app.get("/scrape", function(req, res) {
         });
     });
 });
+
+//////////////////// with axios: ////////////////////////////////////
+// app.get("/scrape", function(req, res) {
+//     axios.get("http://www.seriouseats.com").then(function(response) {
+
+//         // Load the HTML into cheerio and save it to a variable
+//         // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
+//         var $ = cheerio.load(response.data);
+
+//         // look for all h4 tags with a title class
+//         $("h4.title").each(function(i, element) {
+
+//             // save an empty result object
+//             var result = {};
+
+//             result.link = $(this).parent().attr("href");
+//             result.title = $(this).text();
+
+//             // if a title and link both exist, then we create a new Article using the result object built from scraping
+//             if (result.title && result.link) {
+//                 //save each one to mongoDB
+//                 db.seriousEatsdb.insert({
+//                         link: link,
+//                         title: title
+//                     },
+//                     function(err, inserted) {
+//                         if (err) {
+//                             console.log(err);
+//                         }
+//                         else {
+//                             console.log(inserted);
+//                         }
+//                     });
+//             }
+//         });
+//     });
+// });
+////////////////////////////////////////////////////////////////////
 
 app.listen(port, function() {
     console.log("connected to port " + port);
