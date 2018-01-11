@@ -67,7 +67,7 @@ mongoose.connect(MONGODB_URI, {});
 
 /////////////test route//////////////////
 app.get("/test", function(req, res) {
-    res.send("Hello world");
+    res.send("Testing area");
 });
 /////////////////////////////////////////
 
@@ -166,6 +166,24 @@ app.post("/articles/:id", function(req, res) {
         })
         .catch(function(err) {
             // If an error occurred, send it to the client
+            res.json(err);
+        });
+});
+
+// Route for displaying saved articles
+// "saved": true is what we want to find in db.Articles
+app.get("/saved", function(req, res) {
+    // Grab every document in the Articles collection
+    db.Article
+        .find({ saved: true })
+        .then(function(dbArticle) {
+            // If we were able to successfully find Articles, send them back to the client
+            res.json(dbArticle);
+            console.log("displaying saved articles");
+        })
+        .catch(function(err) {
+            // If an error occurred, send it to the client
+            console.log("cannot display saved articles");
             res.json(err);
         });
 });
