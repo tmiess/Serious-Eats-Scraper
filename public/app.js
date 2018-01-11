@@ -4,7 +4,7 @@ $.getJSON("/articles", function(data) {
     //<a href="http://your_url_here.html">Link</a>
     for (var i = 0; i < data.length; i++) {
         // Display the apropos information on the page
-        $("#articles").append("<p data-id='" + data[i]._id + "'><strong>" + data[i].title + "</strong><br />" + "<a target='_blank' href=" + data[i].link + ">Get the recipe here</a>" + "<br />" + data[i].summary + "</p>");
+        $("#articles").append("<p data-id='" + data[i]._id + "'><strong>" + data[i].title + "</strong><br />" + "<a target='_blank' href=" + data[i].link + ">Get the recipe here</a>" + "<br />" + data[i].summary + "</p>" + "<button data-id='" + data[i]._id + "' id='saveArticle'>Save Article</button>");
     }
 });
 
@@ -72,4 +72,26 @@ $(document).on("click", "#savenote", function() {
     // Also, remove the values entered in the input and textarea for note entry
     $("#titleinput").val("");
     $("#bodyinput").val("");
+});
+
+// when the user clicks the savearticle button
+$(document).on("click", "#saveArticle", function() {
+    console.log("saveArticle button works");
+    var thisId = $(this).attr("_id");
+    $.ajax({
+            method: "POST",
+            url: "/saved ",
+            data: {
+                title: this.title,
+                link: this.link,
+            }
+        })
+        .done(function(data) {
+            console.log(data);
+        });
+});
+
+// when the user clicks the "view saved articles button"
+$(document).on("click", "#viewSavedArticles", function() {
+    console.log("viewSavedArticles button works");
 });

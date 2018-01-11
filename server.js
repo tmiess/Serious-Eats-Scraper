@@ -63,6 +63,9 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/seriousEatsdb"
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, {});
 
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
 // Routes --> eventually put these into a controller folder under routes.js and require it in this file. for now, just make sure they are working
 
 /////////////test route//////////////////
@@ -98,7 +101,8 @@ app.get("/scrape", function(req, res) {
                 db.Article.create({
                         link: link,
                         title: title,
-                        summary: summary
+                        summary: summary,
+                        savedArticle: false
                     },
                     function(err, inserted) {
                         if (err) {
