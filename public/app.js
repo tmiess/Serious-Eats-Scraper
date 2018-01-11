@@ -56,7 +56,8 @@ $(document).on("click", "#savenote", function() {
                 title: $("#titleinput").val(),
                 // Value taken from note textarea
                 body: $("#bodyinput").val(),
-
+                // article has been saved
+                saved: true
             }
         })
         // With that done

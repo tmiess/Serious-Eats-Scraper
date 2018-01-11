@@ -174,16 +174,36 @@ app.post("/articles/:id", function(req, res) {
 // "saved": true is what we want to find in db.Articles
 app.get("/saved", function(req, res) {
     // Grab every document in the Articles collection
-    db.Article
+    db.Note
         .find({ saved: true })
-        .then(function(dbArticle) {
+        .then(function(savedArticles) {
             // If we were able to successfully find Articles, send them back to the client
-            res.json(dbArticle);
+            res.json(savedArticles);
             console.log("displaying saved articles");
         })
         .catch(function(err) {
             // If an error occurred, send it to the client
             console.log("cannot display saved articles");
+            res.json(err);
+        });
+});
+
+// saves notes and changes "saved" to true on article object
+app.post("/save", function(req, res) {
+    db.Note
+        .create(req.body)
+        .then(function(dbNote) {
+            // If a Note was created successfully, find one Article (there's only one) and push the new Note's _id to the User's `notes` array
+            // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+            // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+            return db.Articles.findOneAndUpdate({}, { saved: true }, { $push: { notes: dbNote._id } }, { new: true });
+        })
+        .then(function(saveArticle) {
+            // If the User was updated successfully, send it back to the client
+            res.json(saveArticle);
+        })
+        .catch(function(err) {
+            // If an error occurs, send it back to the client
             res.json(err);
         });
 });
