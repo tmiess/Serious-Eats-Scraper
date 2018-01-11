@@ -189,7 +189,7 @@ app.get("/saved", function(req, res) {
 });
 
 // saves notes and changes "saved" to true on article object
-app.post("/save", function(req, res) {
+app.post("/saved", function(req, res) {
     db.Note
         .create(req.body)
         .then(function(dbNote) {
