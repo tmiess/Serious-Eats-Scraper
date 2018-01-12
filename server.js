@@ -74,8 +74,15 @@ app.get("/test", function(req, res) {
 });
 /////////////////////////////////////////
 
-// get route to scrape data from seriouseats.com and store it in db
+//////////wipe db route//////////////////
+app.get("/clear", function(req, res) {
+    db.Articles.remove({}).then(function() {
+        console.log("db clean");
+    });
+});
+/////////////////////////////////////////
 
+// get route to scrape data from seriouseats.com and store it in db
 app.get("/", function(req, res) {
     db.Articles
         .find({ "saved": false })
@@ -99,8 +106,6 @@ app.get("/scrape", function(req, res) {
         // Load the HTML into cheerio and save it to a variable
         // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
         var $ = cheerio.load(html);
-        // db.Article.drop();
-        console.log("number of articles: " + db.Articles.length);
 
         // look for all "a" tags with class "module__link"
         $("a.module__link").each(function(i, element) {
@@ -220,6 +225,8 @@ app.post("/savedArticles/:id", function(req, res) {
         });
 });
 
+app.post("/deletedArticles/:id", function(req, res) {});
+app.get("/deletedArticles", function(req, res) {});
 // saves notes and changes "saved" to true on article object
 // app.post("/savedArticles", function(req, res) {
 //     db.Note

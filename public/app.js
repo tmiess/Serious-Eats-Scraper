@@ -2,6 +2,7 @@ $(document).ready(function() {
 
     // when the user clicks the savearticle button
     $(".saveArticle").on("click", function() {
+        console.log("saveArticle button works");
         $(this).remove();
         var thisId = $(this).attr("data-id");
         console.log(thisId);
@@ -14,7 +15,22 @@ $(document).ready(function() {
             });
     });
 
-    // Whenever someone clicks on note button
+    // when the user clicks the deleteArticle button
+    $(".deleteArticle").on("click", function() {
+        console.log("deleteArticle button works");
+        $(this).parent("#container").remove();
+        var thisId = $(this).attr("data-id");
+        console.log(thisId);
+        $.ajax({
+                method: "POST",
+                url: "/deletedArticles/" + thisId
+            })
+            .done(function(data) {
+                console.log(data);
+            });
+    });
+
+    // when the user clicks the makeNote button
     $(".makeNote").on("click", function() {
         console.log("makeNote button works");
         // Empty the notes from the note section
