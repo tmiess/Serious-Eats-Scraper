@@ -1,0 +1,24 @@
+<div id="wrapper">
+    <h1>SeriousEats Sandwich Scraper</h1>
+    <h2>You're going to want to take some notes</h2>
+    <div id="articles">
+        {{#each article}}
+        <div class="article-content" data-id="{{this._id}}">
+            <div id="title">
+                <strong>{{this.title}}</strong>
+            </div>
+            <div id="summary">
+                {{summary}}
+            </div>
+            <div id="link">
+                <a target='_blank' href="{{this.link}}">Get the recipe here</a>
+            </div>
+            <button class="makeNote" data-id="{{this._id}}">Note</button>
+            <button class="saveArticle" data-id="{{this._id}}">Save</button>
+            <button class="deleteArticle" data-id="{{this._id}}">Delete</button>
+        </div>
+        </br>
+        {{/each}}
+    </div>
+    <div id="notes"></div>
+</div>

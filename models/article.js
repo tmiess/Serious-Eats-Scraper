@@ -24,8 +24,9 @@ var ArticleSchema = new Schema({
         required: true,
         unique: true
     },
-    savedArticle: {
+    saved: {
         type: Boolean,
+        required: true,
         default: false
     },
     // `note` is an object that stores a Note id

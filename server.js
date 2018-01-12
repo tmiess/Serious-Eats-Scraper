@@ -77,7 +77,20 @@ app.get("/test", function(req, res) {
 // get route to scrape data from seriouseats.com and store it in db
 
 app.get("/", function(req, res) {
-    res.send("./public/index.html");
+    db.Article
+        .find({})
+        .populate("note")
+        .then(function(content) {
+            let scrapedObject = {
+                article: content
+            };
+            // If we were able to successfully find Articles, send them back to the client
+            res.render("index", scrapedObject);
+        })
+        .catch(function(err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+        });
 });
 
 app.get("/scrape", function(req, res) {
@@ -86,6 +99,8 @@ app.get("/scrape", function(req, res) {
         // Load the HTML into cheerio and save it to a variable
         // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
         var $ = cheerio.load(html);
+        // db.Article.drop();
+        console.log("number of articles: " + db.Article.length);
 
         // look for all "a" tags with class "module__link"
         $("a.module__link").each(function(i, element) {
@@ -102,7 +117,6 @@ app.get("/scrape", function(req, res) {
                         link: link,
                         title: title,
                         summary: summary,
-                        savedArticle: false
                     },
                     function(err, inserted) {
                         if (err) {
@@ -176,9 +190,9 @@ app.post("/articles/:id", function(req, res) {
 
 // Route for displaying saved articles
 // "saved": true is what we want to find in db.Articles
-app.get("/saved", function(req, res) {
+app.get("/savedArticles", function(req, res) {
     // Grab every document in the Articles collection
-    db.Note
+    db.Article
         .find({ saved: true })
         .then(function(savedArticles) {
             // If we were able to successfully find Articles, send them back to the client
@@ -192,25 +206,39 @@ app.get("/saved", function(req, res) {
         });
 });
 
-// saves notes and changes "saved" to true on article object
-app.post("/saved", function(req, res) {
-    db.Note
-        .create(req.body)
-        .then(function(dbNote) {
-            // If a Note was created successfully, find one Article (there's only one) and push the new Note's _id to the User's `notes` array
-            // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
-            // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-            return db.Articles.findOneAndUpdate({}, { saved: true }, { $push: { notes: dbNote._id } }, { new: true });
-        })
-        .then(function(saveArticle) {
+app.post("/savedArticles/:id", function(req, res) {
+    var thisID = req.params.id;
+    db.Article
+        .findOneAndUpdate({ _id: thisID }, { saved: true })
+        .then(function(savedArticle) {
             // If the User was updated successfully, send it back to the client
-            res.json(saveArticle);
+            console.log("article saved");
         })
         .catch(function(err) {
             // If an error occurs, send it back to the client
             res.json(err);
         });
 });
+
+// saves notes and changes "saved" to true on article object
+// app.post("/savedArticles", function(req, res) {
+//     db.Note
+//         .create(req.body)
+//         .then(function(dbNote) {
+//             // If a Note was created successfully, find one Article (there's only one) and push the new Note's _id to the User's `notes` array
+//             // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+//             // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+//             return db.Articles.findOneAndUpdate({}, { savedArticle: true }, { $push: { notes: dbNote._id } }, { new: true });
+//         })
+//         .then(function(saveArticle) {
+//             // If the User was updated successfully, send it back to the client
+//             res.json(saveArticle);
+//         })
+//         .catch(function(err) {
+//             // If an error occurs, send it back to the client
+//             res.json(err);
+//         });
+// });
 
 app.listen(port, function() {
     console.log("connected to port " + port);
