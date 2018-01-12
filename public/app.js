@@ -1,18 +1,8 @@
-// // Grab the articles as a json
-// $.getJSON("/articles", function(data) {
-//     // For each one
-//     //<a href="http://your_url_here.html">Link</a>
-//     for (var i = 0; i < data.length; i++) {
-//         // Display the apropos information on the page
-//         $("#articles").append("<p data-id='" + data[i]._id + "'><strong>" + data[i].title + "</strong><br />" + "<a target='_blank' href=" + data[i].link + ">Get the recipe here</a>" + "<br />" + data[i].summary + "</p>" + "<button data-id='" + data[i]._id + "' id='saveArticle'>Save Article</button>");
-//     }
-// });
-
 $(document).ready(function() {
 
     // when the user clicks the savearticle button
     $(".saveArticle").on("click", function() {
-        $(this).text("Saved");
+        $(this).remove();
         var thisId = $(this).attr("data-id");
         console.log(thisId);
         $.ajax({
@@ -26,6 +16,7 @@ $(document).ready(function() {
 
     // Whenever someone clicks on note button
     $(".makeNote").on("click", function() {
+        console.log("makeNote button works");
         // Empty the notes from the note section
         $("#notes").empty();
         // Save the id from the button
@@ -47,7 +38,7 @@ $(document).ready(function() {
                 // A textarea to add a new note body
                 $("#notes").append("<textarea id='bodyinput' name='body'></textarea>" + '<br />');
                 // A button to submit a new note, with the id of the article saved to it
-                $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+                $("#notes").append("<button class='saveNote' data-id='" + data._id + "'>Save Note</button>");
 
                 // If there's a note in the article
                 if (data.note) {
@@ -58,38 +49,38 @@ $(document).ready(function() {
                 }
             });
     });
-
-    // When you click the savenote button
-    $(".savenote").on("click", function() {
-        // Grab the id associated with the article from the submit button
-        var thisId = $(this).attr("data-id");
-        console.log(thisId);
-        // Run a POST request to change the note, using what's entered in the inputs
-        $.ajax({
-                method: "POST",
-                url: "/savedArticles/" + thisId,
-                data: {
-                    // Value taken from title input
-                    title: $("#titleinput").val(),
-                    // Value taken from note textarea
-                    body: $("#bodyinput").val(),
-                }
-            })
-            // With that done
-            .done(function(data) {
-                // Log the response
-                console.log(data);
-                // Empty the notes section
-                $("#notes").empty();
-            });
-
-        // Also, remove the values entered in the input and textarea for note entry
-        $("#titleinput").val("");
-        $("#bodyinput").val("");
-    });
-
 });
 
+// have to use this format since these buttons are created dynamically
+$('body').on('click', 'button.saveNote', function() {
+    console.log("savenote button works");
+    $(".saveNote").text("Saved");
+    // Grab the id associated with the article from the submit button
+    var thisId = $(this).attr("data-id");
+    console.log(thisId);
+    // Run a POST request to change the note, using what's entered in the inputs
+    $.ajax({
+            method: "POST",
+            url: "/savedArticles/" + thisId,
+            data: {
+                // Value taken from title input
+                title: $("#titleinput").val(),
+                // Value taken from note textarea
+                body: $("#bodyinput").val(),
+            }
+        })
+        // With that done
+        .done(function(data) {
+            // Log the response
+            console.log(data);
+            // Empty the notes section
+            $("#notes").empty();
+        });
+
+    // Also, remove the values entered in the input and textarea for note entry
+    $("#titleinput").val("");
+    $("#bodyinput").val("");
+});
 
 
 

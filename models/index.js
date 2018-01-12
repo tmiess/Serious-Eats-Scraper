@@ -2,6 +2,6 @@
 // this combines article.js schema with note.js schema
 
 module.exports = {
-    Article: require('./article.js'),
-    Note: require('./note.js')
+    Articles: require('./article.js'),
+    Notes: require('./note.js')
 };
