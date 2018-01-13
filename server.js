@@ -228,8 +228,21 @@ app.post("/savedArticles/:id", function(req, res) {
         });
 });
 
-app.post("/deletedArticles/:id", function(req, res) {});
-app.get("/deletedArticles", function(req, res) {});
+app.post("/deletedArticles/:id", function(req, res) {
+    var thisID = req.params.id;
+    db.Articles
+        .remove({ _id: thisID })
+        .then(function() {
+            // If the User was updated successfully, send it back to the client
+            console.log("article deleted");
+        })
+        .catch(function(err) {
+            // If an error occurs, send it back to the client
+            res.json(err);
+        });
+});
+// app.get("/deletedArticles", function(req, res) {});
+
 // saves notes and changes "saved" to true on article object
 // app.post("/savedArticles", function(req, res) {
 //     db.Note
