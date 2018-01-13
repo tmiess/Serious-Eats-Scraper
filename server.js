@@ -199,9 +199,12 @@ app.get("/savedArticles", function(req, res) {
     // Grab every document in the Articles collection
     db.Articles
         .find({ saved: true })
-        .then(function(savedArticles) {
-            // If we were able to successfully find Articles, send them back to the client
-            res.json(savedArticles);
+        .populate("note")
+        .then(function(content) {
+            let savedArticles = {
+                article: content
+            };
+            res.render("index", savedArticles);
             console.log("displaying saved articles");
         })
         .catch(function(err) {
