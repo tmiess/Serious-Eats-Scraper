@@ -204,7 +204,7 @@ app.get("/savedArticles", function(req, res) {
             let savedArticles = {
                 article: content
             };
-            res.render("index", savedArticles);
+            res.render("saved", savedArticles);
             console.log("displaying saved articles");
         })
         .catch(function(err) {

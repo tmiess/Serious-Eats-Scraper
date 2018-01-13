@@ -1,10 +1,9 @@
 <div id="wrapper">
-    <h1>SeriousEats Sandwich Scraper</h1>
-    <h2>You're going to want to take some notes</h2>
-    <button><a href="/savedArticles" id="viewSavedArticles">View Saved Articles</a></button>
-    </br>
-    </br>
 
+    <h1>Saved Articles</h1>
+    <button><a href="/" id="viewArticles">View Scraped Articles</a></button>
+    </br>
+    </br>
     <div id="articles">
         {{#each article}}
         <div id="container" class="article-content" data-id="{{this._id}}">
