@@ -76,9 +76,18 @@ app.get("/test", function(req, res) {
 
 //////////wipe db route//////////////////
 app.get("/clear", function(req, res) {
-    db.Articles.remove({}).then(function() {
-        console.log("db clean");
-    });
+    db.Articles
+        .remove({}).then(function(content) {
+            let clearedObject = {
+                article: content
+            };
+            // If we were able to successfully find Articles, send them back to the client
+            res.render("cleared", clearedObject);
+        })
+        .catch(function(err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+        });
 });
 /////////////////////////////////////////
 
