@@ -11,14 +11,18 @@
                 <strong>{{this.title}}</strong>
             </div>
             <div id="summary">
-                {{summary}}
+                {{this.summary}}
             </div>
             <div id="link">
                 <a target='_blank' href="{{this.link}}">Get the recipe here</a>
             </div>
-            <div id="note" class="note-content" data-id="{{this.note}}">
-                <h4>Notes: {{body}}</h4>
+
+            {{#each notes}}
+            <div id="notes" class="note-content" data-id="{{this._id}}">
+                <h4>Notes: {{this.body}}</h4>
             </div>
+            {{/each}}
+
             <button class="makeNote" data-id="{{this._id}}">Note</button>
             <button class="deleteArticle" data-id="{{this._id}}">Delete</button>
         </div>

@@ -64,13 +64,12 @@ $('body').on('click', 'button.saveNote', function() {
     // Grab the id associated with the article from the submit button
     var thisId = $(this).attr("data-id");
     console.log(thisId);
+    console.log("note: " + $("#bodyinput").val());
     // Run a POST request to change the note, using what's entered in the inputs
     $.ajax({
             method: "POST",
             url: "/savedArticles/" + thisId,
             data: {
-                // Value taken from title input
-                title: $("#titleinput").val(),
                 // Value taken from note textarea
                 body: $("#bodyinput").val(),
             }
