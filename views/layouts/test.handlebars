@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html>
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Serious Eats Sandwich Scraper</title>
+    <title>Hello Bulma!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
     <style>
@@ -12,33 +12,24 @@
             background-color: white
         }
 
-        .columns {
-            margin: 10%;
+        #wrapper {
+            width: 960px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 5%;
         }
-
 
         #articles {
-
             display: inline-block;
-
             overflow: auto;
-
-            margin: 10%;
-
-            width: 90%;
-
-            height: 700px
+            width: 60%;
+            height: 700px;
+            background-color: white;
         }
 
-
-        /* background-color: white;*/
-
-        /*}*/
-
         #notes {
-            display: inline-block;
-            width: auto;
-            margin: auto;
+            float: right;
+            width: 30%;
         }
 
         textarea,
@@ -49,38 +40,30 @@
         }
 
         input {
-
             height: 36px;
-
             font-size: 24px;
-
         }
 
         textarea {
-
             height: 200px;
-
             font-size: 18px;
-
         }
     </style>
 </head>
 
 <body>
-
     <section class="section">
         <div class="container">
-            <span><img src="https://i.imgur.com/0htGjX8.png?4" title="source: imgur.com" width="100%"/></span>
+            <span><img src="../../images/myFav.svg" alt="ScraperHeaderLogo" id="headerLogo" style="width:740px;height:auto"></span>
         </div>
-    </section>
-
+    </section>4
     <main>
+        <h1>Test Template</h1>
         {{{body}}}
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="app.js"></script>
-
 </body>
 
 </html>

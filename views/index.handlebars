@@ -1,10 +1,23 @@
-<div id="wrapper">
-    <h2>You're going to want to take some notes</h2>
-    <button><a href="/scrape" id="scrapeArticles">Scrape Some Articles</a></button>
-    <button><a href="/savedArticles" id="viewSavedArticles">View Saved Articles</a></button>
-    <button><a href="/clear" id="clearDB">Clear Articles</a></button>
+<div>
+    <div class="columns">
+        <div class="column">
+            <a class="button is-large is-info" href="/scrape" id="scrapeArticles">Scrape Some Articles</a>
+        </div>
+        <div class="column">
+            <a class="button is-large is-info" href="/savedArticles" id="viewSavedArticles">View Saved Articles</a>
+        </div>
+        <div class="column">
+            <a class="button is-large is-info" href="/clear" id="clearDB">Clear Articles</a>
+        </div>
+    </div>
 
     </br>
+    <div id="notes">
+        <div class="modal">
+            <div class="modal-content"></div>
+            <button class="modal-close is-small" aria-label="close"></button>
+        </div>
+    </div>
     </br>
 
     <div id="articles">
@@ -26,5 +39,4 @@
         </br>
         {{/each}}
     </div>
-    <div id="notes"></div>
 </div>
