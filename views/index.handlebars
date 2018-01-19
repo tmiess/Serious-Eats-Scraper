@@ -1,13 +1,13 @@
 <div>
     <div class="columns">
         <div class="column">
-            <a class="button is-large is-info" href="/scrape" id="scrapeArticles">Scrape Some Articles</a>
+            <a class="button is-large is-info is-outlined" href="/scrape" id="scrapeArticles">Scrape Some Articles</a>
         </div>
         <div class="column">
-            <a class="button is-large is-info" href="/savedArticles" id="viewSavedArticles">View Saved Articles</a>
+            <a class="button is-large is-info is-outlined" href="/savedArticles" id="viewSavedArticles">View Saved Articles</a>
         </div>
         <div class="column">
-            <a class="button is-large is-info" href="/clear" id="clearDB">Clear Articles</a>
+            <a class="button is-large is-info is-outlined" href="/clear" id="clearDB">Clear Articles</a>
         </div>
     </div>
 
@@ -32,9 +32,9 @@
             <div id="link">
                 <a target='_blank' href="{{this.link}}">Get the recipe here</a>
             </div>
-            <button class="makeNote" data-id="{{this._id}}">Note</button>
-            <button class="saveArticle" data-id="{{this._id}}">Save</button>
-            <button class="deleteArticle" data-id="{{this._id}}">Delete</button>
+            <a class="button is-medium is-info makeNote" data-id="{{this._id}}">Note</a>
+            <a class="button is-medium is-info saveArticle" data-id="{{this._id}}">Save</a>
+            <a class="button is-medium is-info deleteArticle" data-id="{{this._id}}">Delete</a>
         </div>
         </br>
         {{/each}}

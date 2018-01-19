@@ -1,7 +1,7 @@
 <div id="wrapper">
 
-    <h1>Saved Articles</h1>
-    <button><a href="/" id="viewArticles">View Scraped Articles</a></button>
+    <h1 class="title center">Saved Articles</h1>
+    <a class="button is-large is-info is-outlined" href="/" id="viewArticles">View Scraped Articles</a>
     </br>
     </br>
     <div id="articles">
@@ -23,8 +23,8 @@
             </div>
             {{/each}}
 
-            <button class="makeNote" data-id="{{this._id}}">Note</button>
-            <button class="deleteArticle" data-id="{{this._id}}">Delete</button>
+            <a class="button is-small is-info makeNote" data-id="{{this._id}}">Note</a>
+            <a class="button is-small is-info deleteArticle" data-id="{{this._id}}">Delete</a>
         </div>
         </br>
         {{/each}}
