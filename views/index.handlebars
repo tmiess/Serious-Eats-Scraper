@@ -1,40 +1,27 @@
-<div>
-    <div class="columns">
-        <div class="column">
-            <a class="button is-large is-info is-outlined" href="/scrape" id="scrapeArticles">Scrape Some Articles</a>
-        </div>
-        <div class="column">
-            <a class="button is-large is-info is-outlined" href="/savedArticles" id="viewSavedArticles">View Saved Articles</a>
-        </div>
-        <div class="column">
-            <a class="button is-large is-info is-outlined" href="/clear" id="clearDB">Clear Articles</a>
-        </div>
-    </div>
-
-    </br>
-    <div id="notes">
-        <div class="modal">
-            <div class="modal-content"></div>
-            <button class="modal-close is-small" aria-label="close"></button>
-        </div>
-    </div>
-    </br>
+<div id="index">
 
     <div id="articles">
         {{#each article}}
-        <div id="container" class="article-content" data-id="{{this._id}}">
-            <div id="title">
-                <strong>{{this.title}}</strong>
+        <div id="container" class="article-content columns" data-id="{{this._id}}">
+
+            <div class="column is-6">
+                <div id="title">
+                    <strong>{{this.title}}</strong>
+                </div>
+                <div id="summary">
+                    {{summary}}
+                </div>
+                <div id="link">
+                    <a target='_blank' href="{{this.link}}">Get the recipe here</a>
+                </div>
             </div>
-            <div id="summary">
-                {{summary}}
+
+            <div class="column is-6">
+                <a class="button is-medium is-info makeNote" data-id="{{this._id}}">Note</a>
+                <a class="button is-medium is-info saveArticle" data-id="{{this._id}}">Save</a>
+                <a class="button is-medium is-info deleteArticle" data-id="{{this._id}}">Delete</a>
             </div>
-            <div id="link">
-                <a target='_blank' href="{{this.link}}">Get the recipe here</a>
-            </div>
-            <a class="button is-medium is-info makeNote" data-id="{{this._id}}">Note</a>
-            <a class="button is-medium is-info saveArticle" data-id="{{this._id}}">Save</a>
-            <a class="button is-medium is-info deleteArticle" data-id="{{this._id}}">Delete</a>
+
         </div>
         </br>
         {{/each}}

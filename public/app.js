@@ -1,4 +1,7 @@
 $(document).ready(function() {
+    $(".makeNote").click(function() {
+        $(".modal").addClass("is-active");
+    });
 
     // when the user clicks the savearticle button
     $(".saveArticle").on("click", function() {
@@ -18,7 +21,7 @@ $(document).ready(function() {
     // when the user clicks the deleteArticle button
     $(".deleteArticle").on("click", function() {
         console.log("deleteArticle button works");
-        $(this).parent("#container").remove();
+        $(this).closest("#container").remove();
         var thisId = $(this).attr("data-id");
         console.log(thisId);
         $.ajax({
@@ -34,7 +37,8 @@ $(document).ready(function() {
     $(".makeNote").on("click", function() {
         console.log("makeNote button works");
         // Empty the notes from the note section
-        $("#notes").empty();
+        $(".modal-card-foot").empty();
+        $(".modal-card-body").empty();
         // Save the id from the button
         var thisId = $(this).attr("data-id");
         console.log(thisId);
@@ -48,17 +52,18 @@ $(document).ready(function() {
             .done(function(data) {
                 console.log(data);
                 // The title of the article
-                $("#notes").append("<h2>" + data.title + "</h2>");
+                $(".modal-card-title").text(data.title);
                 // A textarea to add a new note body
-                $("#notes").append("<textarea id='bodyinput' name='body'></textarea>" + '<br />');
+                $(".modal-card-body").append("<textarea id='bodyinput' name='body'></textarea>");
                 // A button to submit a new note, with the id of the article saved to it
-                $("#notes").append("<button class='saveNote' data-id='" + data._id + "'>Save Note</button>");
+                $(".modal-card-foot").append("<a class='button is-medium is-info saveNote' data-id='" + data._id + "'>Save Note</a>");
+                $(".modal-card-foot").append("<a class='button is-medium is-info close' data-id='" + data._id + "'>Cancel</a>");
             });
     });
 });
 
 // have to use this format since these buttons are created dynamically
-$('body').on('click', 'button.saveNote', function() {
+$('body').on('click', '.saveNote', function() {
     console.log("savenote button works");
     $(".saveNote").text("Saved");
     // Grab the id associated with the article from the submit button
@@ -85,6 +90,12 @@ $('body').on('click', 'button.saveNote', function() {
     // Also, remove the values entered in the input and textarea for note entry
     $("#titleinput").val("");
     $("#bodyinput").val("");
+    $(".saveNote").text("Save New Note");
+});
+
+$('body').on("click", ".close", function() {
+    console.log("modal-close button works");
+    $(".modal").removeClass("is-active");
 });
 
 

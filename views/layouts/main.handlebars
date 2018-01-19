@@ -6,14 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Serious Eats Sandwich Scraper</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
     <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
     <style>
         body {
             background-color: white
         }
 
-        .columns {
-            margin: 10%;
+        .is-one-third {
+            margin: auto;
+        }
+
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 90%;
+        }
+
+        #index,
+        #saved {
+            margin-top: -60px;
         }
 
         #logo {
@@ -39,15 +52,18 @@
         /*}*/
 
         #notes {
-            width: auto;
-            margin: auto;
+            width: 50%;
+            margin-top: 80px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
         }
 
         textarea,
         input {
             display: block;
             width: 100%;
-            background-color: #FCF5C7;
+            background-color: white;
         }
 
         input {
@@ -70,11 +86,78 @@
 
 <body>
 
-    <section class="section">
-        <div class="container">
-            <span><img id="logo" src="https://i.imgur.com/0htGjX8.png?4" title="source: imgur.com"/></span>
+    {{!--
+    <section class="section">--}} {{!--
+        <div class="container">--}} {{!-- <span><img id="logo" src="https://i.imgur.com/0htGjX8.png?4" title="source: imgur.com"/></span>--}} {{!-- </div>--}} {{!--
+    </section>--}}
+    <div class="container">
+
+        <a href="https://imgur.com/8k1wcYW"><img src="https://i.imgur.com/8k1wcYW.jpg" title="source: imgur.com" /></a>
+        <hr class="navbar-divider">
+        <nav class="navbar is-transparent">
+
+            <div id="navContainer" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item" href="/">
+                    Scraped Recipes
+                    </a>
+
+                    <a class="navbar-item" href="/savedArticles">
+                    Saved Recipes
+                    </a>
+
+                    <a class="navbar-item" href="/scrape" id="scrapeArticles">Scrape More Recipes</a>
+
+                </div>
+            </div>
+
+            <div class="navbar-menu">
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="field is-grouped">
+                            <span>
+                        <p class="control">
+                            <a class="button is-info" target="_blank" href="https://github.com/tmiess">
+                    <ion-icon name="logo-github"></ion-icon>
+                        <span>My Github</span>
+                            </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <hr class="navbar-divider">
+        <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Modal title</p>
+                    <button class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                </section>
+                <footer class="modal-card-foot">
+                </footer>
+            </div>
         </div>
-    </section>
+    </div>
+
+    {{!--
+    <div class="navbar-menu is-active">--}} {{!--
+        <button class="button navbar-burger">--}}
+            {{!--<span>--}}
+{{!--<a class="button navbar-item is-large is-info is-outlined" href="/scrape" id="scrapeArticles">Scrape Some Articles</a>--}}
+                        {{!--</span>--}}
+            {{!--<span>            --}}
+            {{!--<a class="button navbar-item is-large is-info is-outlined" href="/savedArticles" id="viewSavedArticles">View Saved Articles</a>--}}
+            {{!--</span>--}}
+            {{!--<span>            --}}
+            {{!--<a class="button navbar-item is-large is-info is-outlined" href="/clear" id="clearDB">Clear Articles</a>--}}
+            {{!--</span>--}}
+            {{!--</button>--}} {{!--
+    </div>--}}
 
     <main>
         {{{body}}}
