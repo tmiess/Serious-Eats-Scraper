@@ -192,26 +192,5 @@ app.post("/deletedArticles/:id", function(req, res) {
             res.json(err);
         });
 });
-// app.get("/deletedArticles", function(req, res) {});
-
-// saves notes and changes "saved" to true on article object
-// app.post("/savedArticles", function(req, res) {
-//     db.Note
-//         .create(req.body)
-//         .then(function(dbNote) {
-//             // If a Note was created successfully, find one Article (there's only one) and push the new Note's _id to the User's `notes` array
-//             // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
-//             // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-//             return db.Articles.findOneAndUpdate({}, { savedArticle: true }, { $push: { notes: dbNote._id } }, { new: true });
-//         })
-//         .then(function(saveArticle) {
-//             // If the User was updated successfully, send it back to the client
-//             res.json(saveArticle);
-//         })
-//         .catch(function(err) {
-//             // If an error occurs, send it back to the client
-//             res.json(err);
-//         });
-// });
 
 module.exports = app;

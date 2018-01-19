@@ -97,23 +97,3 @@ $('body').on("click", ".close", function() {
     console.log("modal-close button works");
     $(".modal").removeClass("is-active");
 });
-
-
-
-
-
-// // when the user clicks the deletearticle button
-// $(document).on("click", "#deleteArticle", function() {
-//     var thisId = $(this).attr("data-id");
-//     $.ajax({
-//             method: "POST",
-//             url: "/deleted ",
-//             data: {
-//                 title: this.title,
-//                 link: this.link,
-//             }
-//         })
-//         .done(function(data) {
-//             console.log(data);
-//         });
-// });
