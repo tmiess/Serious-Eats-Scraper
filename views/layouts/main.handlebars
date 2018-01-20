@@ -9,7 +9,6 @@
     {{!--
     <link rel="icon" type="image/png" href="favicon-196x196.png" sizes="196x196" />--}} {{!--
     <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />--}}
-    <link rel="icon" type="image/png" href="faviconSketch2.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="https://i.imgur.com/p4RrG0n.png?3" />{{!--
     <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />--}} {{!--
     <link rel="icon" type="image/png" href="favicon-128.png" sizes="128x128" />--}}
@@ -26,20 +25,23 @@
             margin: auto;
         }
 
-        img {
+        #bannerLogo {
             display: block;
             margin-left: auto;
             margin-right: auto;
             width: 90%;
         }
 
-        #index,
-        #saved {
-            margin-top: -60px;
+        #mobileLogo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
         }
 
-        #logo {
-            width: 100%;
+        #index,
+        #saved {
+            margin-top: -5px;
         }
 
         #articles {
@@ -48,7 +50,7 @@
 
             overflow: auto;
 
-            margin: 10%;
+            margin: 5%;
 
             width: 90%;
 
@@ -101,34 +103,48 @@
     </section>--}}
     <div class="container">
 
-        <a href="https://imgur.com/8k1wcYW"><img src="https://i.imgur.com/8k1wcYW.jpg" title="source: imgur.com" /></a>
-        <hr class="navbar-divider">
-        <nav class="navbar is-transparent">
+        <a href="https://imgur.com/8k1wcYW"><img class="is-hidden-mobile" id="bannerLogo" src="https://i.imgur.com/8k1wcYW.jpg" title="source: imgur.com" /></a>
 
-            <div id="navContainer" class="navbar-menu">
-                <div class="navbar-start">
-                    <a class="navbar-item" href="/">
+        <div class="is-hidden-tablet">
+            <a href="https://imgur.com/Py6C0rm"><img id="mobileLogo" src="https://i.imgur.com/Py6C0rm.png" title="source: imgur.com"/></a>
+            <h1 class="has-text-centered has-text-weight-bold is-italic is-size-3">Serious Eats Sandwich Scraper</h1>
+        </div>
+
+        <hr class="navbar-divider ">
+        <nav class="navbar is-transparent ">
+
+            <div class="navbar-brand ">
+                <button class="button navbar-burger" data-target="navbar-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+            </div>
+
+            <div id="navContainer " class="navbar-menu">
+                <div class="navbar-start ">
+                    <a class="navbar-item " href="/ ">
                     Scraped Recipes
                     </a>
 
-                    <a class="navbar-item" href="/savedArticles">
+                    <a class="navbar-item " href="/savedArticles ">
                     Saved Recipes
                     </a>
 
-                    <a class="navbar-item" href="/scrape" id="scrapeArticles">Scrape More Recipes</a>
+                    <a class="navbar-item " href="/scrape " id="scrapeArticles ">Scrape More Recipes</a>
 
                 </div>
             </div>
 
-            <div class="navbar-menu">
+            <div class="navbar-menu ">
 
-                <div class="navbar-end">
-                    <div class="navbar-item">
-                        <div class="field is-grouped">
+                <div class="navbar-end ">
+                    <div class="navbar-item ">
+                        <div class="field is-grouped ">
                             <span>
-                        <p class="control">
-                            <a class="button is-info" target="_blank" href="https://github.com/tmiess">
-                    <ion-icon name="logo-github"></ion-icon>
+                        <p class="control ">
+                            <a class="button is-black is-outlined " target="_blank " href="https://github.com/tmiess ">
+                    <ion-icon name="logo-github "></ion-icon>
                         <span>My Github</span>
                             </a>
                             </p>
@@ -137,17 +153,17 @@
                 </div>
             </div>
         </nav>
-        <hr class="navbar-divider">
-        <div class="modal">
-            <div class="modal-background"></div>
-            <div class="modal-card">
-                <header class="modal-card-head">
-                    <p class="modal-card-title">Modal title</p>
-                    <button class="delete" aria-label="close"></button>
+        <hr class="navbar-divider ">
+        <div class="modal ">
+            <div class="modal-background "></div>
+            <div class="modal-card ">
+                <header class="modal-card-head ">
+                    <p class="modal-card-title ">Modal title</p>
+                    <button class="delete " aria-label="close "></button>
                 </header>
-                <section class="modal-card-body">
+                <section class="modal-card-body ">
                 </section>
-                <footer class="modal-card-foot">
+                <footer class="modal-card-foot ">
                 </footer>
             </div>
         </div>
@@ -157,8 +173,8 @@
         {{{body}}}
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js "></script>
+    <script src="app.js "></script>
 
 </body>
 
