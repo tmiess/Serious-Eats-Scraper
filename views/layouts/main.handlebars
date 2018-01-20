@@ -111,49 +111,54 @@
         </div>
 
         <hr class="navbar-divider ">
-        <nav class="navbar is-transparent ">
 
-            <div class="navbar-brand ">
-                <button class="button navbar-burger" data-target="navbar-menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-            </div>
+        <div class="container">
 
-            <div id="navContainer " class="navbar-menu">
-                <div class="navbar-start ">
-                    <a class="navbar-item " href="/ ">
+            <nav class="navbar is-transparent ">
+
+                <div class="navbar-brand ">
+                    <button class="button is-black is-outlined navbar-burger" onclick="document.querySelector('.navbar-menu').classList.toggle('is-active');">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                </button>
+                </div>
+
+                <div id="navContainer " class="navbar-menu">
+                    <div class="navbar-start ">
+                        <a class="navbar-item " href="/ ">
                     Scraped Recipes
                     </a>
 
-                    <a class="navbar-item " href="/savedArticles ">
+                        <a class="navbar-item " href="/savedArticles ">
                     Saved Recipes
                     </a>
 
-                    <a class="navbar-item " href="/scrape " id="scrapeArticles ">Scrape More Recipes</a>
+                        <a class="navbar-item " href="/scrape " id="scrapeArticles ">Scrape More Recipes</a>
 
+                    </div>
                 </div>
-            </div>
 
-            <div class="navbar-menu ">
+                <div class="navbar-menu ">
 
-                <div class="navbar-end ">
-                    <div class="navbar-item ">
-                        <div class="field is-grouped ">
-                            <span>
-                        <p class="control ">
-                            <a class="button is-black is-outlined " target="_blank " href="https://github.com/tmiess ">
-                    <ion-icon name="logo-github "></ion-icon>
-                        <span>My Github</span>
-                            </a>
-                            </p>
+                    <div class="navbar-end ">
+                        <div class="navbar-item ">
+                            <div class="field is-grouped ">
+                                <p class="control ">
+                                    <a class="button is-black" target="_blank " href="https://github.com/tmiess ">
+                                        <ion-icon name="logo-github "></ion-icon>
+                                        <span>My Github</span>
+                                    </a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
+
         <hr class="navbar-divider ">
+
         <div class="modal ">
             <div class="modal-background "></div>
             <div class="modal-card ">
