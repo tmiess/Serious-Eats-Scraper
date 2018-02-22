@@ -1,7 +1,7 @@
 # Serious-Eats-Scraper
 
 ![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
-![logo](https://github.com/tmiess/Serious-Eats-Scraper/blob/master/logos/final3.svg
+![logo](https://raw.githubusercontent.com/tmiess/Serious-Eats-Scraper/master/logos/final3.svg)
 
 Preview this app on Heroku: https://enigmatic-temple-27421.herokuapp.com/
 
