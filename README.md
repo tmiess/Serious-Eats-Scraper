@@ -1,4 +1,3 @@
-# Serious-Eats-Scraper
 ![logo](https://raw.githubusercontent.com/tmiess/Serious-Eats-Scraper/master/logos/finalLogo5.jpg)
 
 Preview this app on Heroku: https://enigmatic-temple-27421.herokuapp.com/
